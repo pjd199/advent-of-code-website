@@ -1,0 +1,36 @@
+import { Inter } from 'next/font/google';
+import Head from 'next/head';
+import Image from 'next/image';
+
+import { Anchor, Container, Text, Title } from '@mantine/core';
+
+const inter = Inter({ subsets: ['latin'] })
+
+export default function IndexPage () {
+  return (
+    <Container>
+      <Title order={1}>Welcome</Title>
+      <Text>
+        <Anchor href='https://www.adventofcode.com' target='_blank'>
+          Advent of Code
+        </Anchor>
+        &nbsp;is an annual coding challenge by Eric Wastl. Some take up the
+        challenge for the glory of the hall of fame. Others, like me, use the
+        daily puzzles as a way of learning a new language.
+      </Text>
+      <Text>
+        And so, this project has been the story of my journey into Python - the
+        language, the ecosystem and the whole Pythnoic world. Blended with years
+        of experience as a Software Engineer, the aim is to compose solutions
+        that are elegant, robust and fully tested. Oh, and deployed as a RESTful
+        API using Flask, AWS Lambda, with Github Actions providing for a CI/CD
+        pipleline with automated test, build and deploy functionality.
+      </Text>
+      <Text>
+        Developing the project further, I've now added in a website builit in
+        React and Next.js, with a Mantine UI - all to aid in the learning of new
+        things.
+      </Text>
+    </Container>
+  )
+}
