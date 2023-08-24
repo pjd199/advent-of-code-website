@@ -14,11 +14,14 @@
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "npm install",
 
+	"postAttachCommand": "npm run dev"
+
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"numso.prettier-standard-vscode",
-				"dbaeumer.vscode-eslint"
+				"dbaeumer.vscode-eslint",
+				"rvest.vs-code-prettier-eslint"
 			]
 		}
 	}
