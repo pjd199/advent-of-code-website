@@ -1,114 +1,242 @@
-# Documentation for the RESTful API
+# Using the RESTful API
 
-## Using the API
+The RESTful API for this project is hosted at
+[https://api.adventofcode.dibdin.me](https://api.adventofcode.dibdin.me)
 
-The solver is hosted is as an AWS Lambda function, and can be accessed at
-[https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws](https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws).
+## Resource Endpoints
 
-The endpoints for this API are listed below. The body of the response is in JSON
-format, with the HTTP header containing one of the following standard status
-codes:
+The resource endpoints for this API are:
+
+- **/** - the root resource, listing of all resources available on this API
+- **/calendars** - the calendar resource, listing valid puzzle years and days
+- **/puzzles** - the puzzles resouce, detailing of all the puzzles
+- **/answers** - the answers resource, to find the answer to a specific puzzle
+- **/system** - the system resource, providing information about the API system
+
+The body of the response is in JSON format, with the HTTP header containing one
+of the following standard status codes:
 
 - 200 - success
 - 404 - no solver for requested date or path does not exist
-- 500 - server error, including errors in puzzle input file
+- 500 - server error, including errors in the puzzle input file
 
-## Endpoints
+## 1. /
 
-### /
+The root resource, listing of all resources available on this API
 
-A list of puzzle solutions, listed by year and day
-
-For example,
-[https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/](https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/)
+```bash
+curl http://api.adventofcode.dibdin.me
+```
 
 ```json
 {
-  "years": [
+  "api_version": "2.0.0",
+  "description": "Discover resourses available through this API.",
+  "links": [
+    {
+      "action": "GET",
+      "description": "Discover available puzzles and answers, filtered using /calendars/{year}.",
+      "href": "api.adventofcode.dibdin.me/calendars",
+      "rel": "calendars"
+    },
+    {
+      "action": "GET",
+      "description": "Discover detailed puzzle information, filtered using /puzzles/{year}/{day}.",
+      "href": "api.adventofcode.dibdin.me/puzzles",
+      "rel": "puzzles"
+    },
+    {
+      "action": "GET",
+      "description": "Find answer for given input by calling /answers/{year}/{day} with puzzle input as POST body or URL provided as input paramerater.",
+      "href": "api.adventofcode.dibdin.me/answers",
+      "parameters": ["input"],
+      "rel": "answers"
+    },
+    {
+      "action": "POST",
+      "description": "Find answer for given input by calling /answers/{year}/{day} with puzzle input as POST body or URL provided as input paramerater.",
+      "href": "api.adventofcode.dibdin.me/answers",
+      "rel": "answers"
+    }
+  ],
+  "results": ["calendars", "puzzles", "answers"],
+  "self": "http://api.adventofcode.dibdin.me",
+  "timestamp": "2023-07-31T11:23:33Z"
+}
+```
+
+## 2. /calendars
+
+The calendars resource, listing valid puzzle years and days. Filtered using
+/calendars/\{year\} (for example /calendar/2015).
+
+```bash
+curl https://api.adventofcode.dibdin.me/calendars
+```
+
+```json
+{
+  "api_version": "2.0.0",
+  "description": "List of available puzzles, filtered using /calendars/{year}",
+  "links": [],
+  "results": [
     {
       "days": [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        19, 20, 21, 22, 23, 24, 25
+      ],
+      "links": [
+        {
+          "action": "GET",
+          "description": "Discover detailed puzzle information for 2015.",
+          "href": "http://api.adventofcode.dibdin.me/puzzles/2015",
+          "rel": "puzzles"
+        }
       ],
       "year": 2015
     },
     {
-      "days": [1, 2, 3, 4, 5],
+      "days": [1, 2],
+      "links": [
+        {
+          "action": "GET",
+          "description": "Discover detailed puzzle information for 2016.",
+          "href": "http://api.adventofcode.dibdin.me/puzzles/2016",
+          "rel": "puzzles"
+        }
+      ],
       "year": 2016
+    }
+  ],
+  "self": "http://api.adventofcode.dibdin.me/calendars",
+  "timestamp": "2016-12-02T16:23:41Z"
+}
+```
+
+## 3. /puzzles
+
+The puzzles resource, listing detailed puzzle information. Filtered using
+/puzzles/\{year\} or /puzzles/\{year\}/\{day\} (eg /puzzles/2022 or /puzzles/2022/25)
+
+```bash
+curl https://api.adventofcode.dibdin.me/puzzles/2015/1
+```
+
+```json
+{
+  "timestamp": "2023-08-03T16:56:21Z",
+  "self": "http://api.adventofcode.dibdin.me/puzzles/2015/1",
+  "api_version": "2.0.0",
+  "description": "Detailed puzzle information, filtered using /puzzles/{year}/{day}",
+  "results": [
+    {
+      "year": 2015,
+      "day": 1,
+      "title": "Not Quite Lisp",
+      "excerpt": "Santa was hoping for a white Christmas, but his weather machine's \"snow\" function is powered by stars, and he's fresh out!  To save Christmas, he needs you to collect fifty stars by December 25th.",
+      "has_part_one": true,
+      "has_part_two": true,
+      "part_one_solved": true,
+      "part_two_solved": true,
+      "completion_date": "2022-07-09T19:08:56+01:00",
+      "timings": {
+        "unit": "ms",
+        "parse": 6,
+        "part_one": 0,
+        "part_two": 0
+      },
+      "official_url": "https://adventofcode.com/2015/day/1",
+      "repository_url": "https://github.com/pjd199/advent_of_code_python/blob/main/advent_of_code/year2015/day1.py",
+      "code_url": "https://raw.githubusercontent.com/pjd199/advent_of_code_python/main/advent_of_code/year2015/day1.py",
+      "links": [
+        {
+          "rel": "answers",
+          "href": "http://api.adventofcode.dibdin.me/answers/2015/1",
+          "description": "Get the answer for 2015 day 1.",
+          "action": "GET",
+          "parameters": ["input"]
+        },
+        {
+          "rel": "answers",
+          "href": "http://api.adventofcode.dibdin.me/answers/2015/1",
+          "description": "Get the answer for 2015 day 1.",
+          "action": "POST"
+        }
+      ]
+    }
+  ],
+  "links": []
+}
+```
+
+## 4. /answers/\{year\}/\{day\}
+
+Solve the puzzle for the requested year and day. There are two options for
+providing the puzzle input.
+
+1. The URL of a puzzle input file can be passed in using the input query
+   parameter when requesting with the HTTP GET method.
+
+```bash
+curl https://api.adventofcode.dibdin.me/answers/2015/2?input=https://raw.githubusercontent.com/pjd199/advent_of_code_python/main/puzzle_input/year2015/day2.txt
+```
+
+2. The puzzle input file can be uploaded using the HTTP POST method.
+
+```bash
+curl -X POST -H "Content-Type: text/plain" -d "@day2.txt"  https://api.adventofcode.dibdin.me/answers/2015/2
+
+```
+
+```json
+{
+  "timestamp": "2023-07-31T10:32:54Z",
+  "self": "http://localhost:5000/answers/2015/2",
+  "api_version": "2.0.0",
+  "description": "Get the answer to the puzzle, with input file provide as POST, or URL provided as input paramerater.",
+  "results": {
+    "year": 2015,
+    "day": 2,
+    "part_one": "1598415",
+    "part_two": "3812909",
+    "timings": {
+      "units": "ms",
+      "parse": 5,
+      "part_one": 0,
+      "part_two": 0
+    }
+  },
+  "links": [
+    {
+      "rel": "puzzles",
+      "href": "http://api.adventofcode.dibdin.me/puzzles/2015/2",
+      "description": "Get the puzzle information for 2015 day 2.",
+      "action": "GET"
     }
   ]
 }
 ```
 
-### /\{year}
+## 5. /system
 
-A list of puzzles which have been solved for the requested year.
-
-For example,
-[https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/2015](https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/2015)
+The system resource, displaying useful system information.
 
 ```json
 {
-  "days": [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25
-  ],
-  "year": 2015
-}
-```
-
-### /\{year}/\{day}
-
-Solve the puzzle for the requested year and day. There are three options for
-providing the puzzle input.
-
-1. The URL of a puzzle input file can be passed in using the input query
-   parameter when requesting with the HTTP GET method, i.e. append
-   ?input=http... to request URL
-2. The puzzle input file can be uploaded using the HTTP POST method.
-3. If no puzzle input is provided, the author's puzzle input is used by default.
-
-For example,
-[https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/2015/1](https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/2015/1)
-
-```json
-{
-  "day": 1,
-  "title": "Not Quite Lisp",
-  "part_one": "74",
-  "part_two": "1795",
-  "year": 2015
-}
-```
-
-### /\{year}/\{day}/part_one
-
-As above, but only solves part one of the puzzle.
-
-For example,
-[https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/2015/1/part_one](https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/2015/1/part_one)
-
-```json
-{
-  "day": 1,
-  "title": "Not Quite Lisp",
-  "part_one": "74",
-  "year": 2015
-}
-```
-
-### /\{year}\{day}/part_two
-
-As above, but only solves part two of the puzzle.
-
-For example,
-[https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/2015/1/part_two](https://jnrxshzkvnbexzeedxptq54ugq0mqlpe.lambda-url.eu-west-2.on.aws/2015/1/part_two)
-
-```json
-{
-  "day": 1,
-  "title": "Not Quite Lisp",
-  "part_two": "1795",
-  "year": 2015
+    "timestamp": "2023-08-24T13:18:34Z",
+    "self": "https://api.adventofcode.dibdin.me/system",
+    "api_version": "2.0.0",
+    "description": "System information.",
+    "results": {
+        "url": "https://api.adventofcode.dibdin.me/system",
+        "host": "api.adventofcode.dibdin.me",
+        "platform": "Linux-4.14.255-311-248.529.amzn2.aarch64-aarch64-with-glibc2.36",
+        "machine": "aarch64",
+        "architecture": "64bit",
+        "compiler": "CPython 3.11.4",
+        "license_url": "https://raw.githubusercontent.com/pjd199/advent_of_code_python/main/license.md",
+        "license": "MIT"
+    },
+    "links": []
 }
 ```
