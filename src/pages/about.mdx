@@ -1,5 +1,16 @@
 import Image from "next/image"
 import logo from "../../public/next.svg"
+import SystemInformation from "../components/systeminformation"
+
+export const getStaticProps = async () => {
+  const response = await fetch(
+    "https://api.adventofcode.dibdin.me/system"
+  )
+  const body = await response.json()
+  const info = body.results
+
+return { props: { info } }
+}
 
 # About Page
 
@@ -19,13 +30,17 @@ pipleline with automated test, build and deploy functionality. Free to try it
 out below, just don't spoil your fun by using the API until you've solved the
 puzzle by yourself!!!
 
+## System Information
+
+<SystemInformation info={props.info} />
+
 ## Progress on Development Branch
 
 <Image
-  src="https://raw.githubusercontent.com/pjd199/advent_of_code_python/dev/status.gif"
-  alt="Status on the GitHub Development Branch"
-  width="492"
-  height="180"
+  src='https://raw.githubusercontent.com/pjd199/advent_of_code_python/dev/status.gif'
+  alt='Status on the GitHub Development Branch'
+  width='492'
+  height='180'
 />
 
 ## Built with
@@ -39,8 +54,8 @@ puzzle by yourself!!!
 # Tail
 
 ```javascript
-alert("Hello")
-console.log("Log this")
+alert('Hello')
+console.log('Log this')
 ```
 
 This is `inline` code
@@ -52,7 +67,7 @@ line break
 
 > this is a block quote
 
-[This is a link](http://www.google.co.uk/events "Test anchor")
+[This is a link](http://www.google.co.uk/events 'Test anchor')
 
 1. first
 2. second
@@ -62,6 +77,6 @@ line break
 - two
 - three
 
-<Image src={logo} alt="Image with NextImage" />
+<Image src={logo} alt='Image with NextImage' />
 
 Done

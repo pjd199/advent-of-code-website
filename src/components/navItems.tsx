@@ -19,8 +19,8 @@ const navItems: Item[] = [
   },
   {
     icon: <IconCalendar size='1em' stroke={1.5} />,
-    label: 'Annual Events',
-    href: './events'
+    label: 'Events Calendars',
+    href: './calendars'
   },
   {
     icon: <IconInfoCircle size='1em' stroke={1.5} />,
