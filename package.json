@@ -36,5 +36,8 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "^7.32.2",
     "standard": "^17.1.0"
+  },
+  "prettier": {
+    "singleQuote": true
   }
 }

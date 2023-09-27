@@ -15,6 +15,7 @@ import {
 import { useDisclosure } from '@mantine/hooks'
 
 import navItems from './navItems'
+import Countdown from './countdown'
 
 type Props = {
   children?: React.ReactNode
@@ -62,7 +63,7 @@ export default function Layout ({ children }: Props) {
       }
       footer={
         <Footer height={60} p='md'>
-          Countdownt to AOC...
+          <Countdown/>
         </Footer>
       }
       header={

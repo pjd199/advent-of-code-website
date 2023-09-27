@@ -1,6 +1,6 @@
 import { AocApiCalendars, AocApiPuzzles } from '@/components/types'
 import { Title, Text } from '@mantine/core'
-
+import Link from 'next/link'
 import { ParsedUrlQuery } from 'querystring'
 
 interface IParams extends ParsedUrlQuery {
@@ -50,10 +50,12 @@ export default function Page ({
   return (
     <div>
       <Title order={1}>{year}</Title>
-      {puzzles.map((entry, i) => (
+      {puzzles.map((x, i) => (
+        <Link href={`/puzzles/${year}/${x.day}`} passHref key={i}>
         <Text key={i}>
-          <b>Day {entry.day}</b> ... {entry.title} stars
+          <b>Day {x.day}</b> ... {x.title} stars
         </Text>
+        </Link>
       ))}
     </div>
   )

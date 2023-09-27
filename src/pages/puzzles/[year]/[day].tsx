@@ -3,7 +3,11 @@ import { ParsedUrlQuery } from 'querystring'
 
 import Runner from '@/components/runner'
 
-import { AocApiCalendars, AocApiPuzzle } from '@/components/types'
+import {
+  AocApiCalendars,
+  AocApiPuzzle,
+  AocApiPuzzles
+} from '@/components/types'
 import { Text, Title, Accordion } from '@mantine/core'
 
 interface IParams extends ParsedUrlQuery {
@@ -46,11 +50,12 @@ export const getStaticProps: GetStaticProps<{
 }> = async context => {
   const { year, day } = context.params as IParams
 
-  const response = await fetch(
-    `https://api.adventofcode.dibdin.me/puzzles/${year}/${day}`
-  )
+  const response = await fetch(`https://api.adventofcode.dibdin.me/puzzles`)
   const body = await response.json()
-  const puzzle = body.results[0]
+  const results: AocApiPuzzles = body.results
+  const puzzle = results.filter(
+    x => x.year == parseInt(year) && x.day == parseInt(day)
+  )[0]
 
   const codeResposne = await fetch(puzzle.code_url)
   const code = await codeResposne.text()

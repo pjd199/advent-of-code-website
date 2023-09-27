@@ -146,12 +146,13 @@ export default function Runner (props: { puzzle : AocApiPuzzle }) {
       >
         <Text>
           Elapsed Time: {(elapsedTime / 1000).toFixed(2)}s
-          {elapsedTime > averageTime && ' (taking longer than expected)'}
+          {elapsedTime > (averageTime + 1000) && ' (taking longer than expected)'}
         </Text>
         <Progress
           radius='xl'
           size={24}
           value={(elapsedTime / (averageTime + 1000)) * 100}
+          animate={elapsedTime > (averageTime + 1000)}
         />
       </Stepper.Step>
 
