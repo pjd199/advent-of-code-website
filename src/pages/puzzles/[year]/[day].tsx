@@ -8,7 +8,7 @@ import {
   AocApiPuzzle,
   AocApiPuzzles
 } from '@/components/types'
-import { Text, Title, Accordion } from '@mantine/core'
+import { Anchor, Text, Title, Accordion } from '@mantine/core'
 
 interface IParams extends ParsedUrlQuery {
   year: string
@@ -72,21 +72,22 @@ export default function Page ({
 
   return (
     <div>
-      <Title order={1}>{puzzle.title}</Title>
+      <Title order={1}>{puzzle.title} ({puzzle.day.toString().padStart(2, '0')} / {puzzle.year})</Title>
       <Title order={2}>
-        {puzzle.day.toString().padStart(2, '0')} / {puzzle.year}
+        Overview
       </Title>
-      <Text>{puzzle.excerpt}...</Text>
-      <Text>Completed on {new Date(puzzle.completion_date).toUTCString()}</Text>
+      <Text>{puzzle.excerpt}... (<Anchor href={puzzle.official_url}>read more</Anchor>)</Text>
+      <Text><b>Completion date:</b> {new Date(puzzle.completion_date).toUTCString()}</Text>
       <Text>
-        Average time: {averageTime}
+        <b>Average solve time:</b> {averageTime}
         {puzzle.timings.unit}
       </Text>
       <Title order={2}>Solve puzzle</Title>
       <Runner puzzle={puzzle} />
+      <Title order={2}>Code</Title>
       <Accordion>
         <Accordion.Item value='code'>
-          <Accordion.Control>Code</Accordion.Control>
+          <Accordion.Control>Click to expand...</Accordion.Control>
           <Accordion.Panel>
             <Prism language='python' withLineNumbers>
               {code}

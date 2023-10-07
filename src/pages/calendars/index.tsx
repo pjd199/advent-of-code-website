@@ -1,5 +1,5 @@
 import { AocApiCalendars } from '@/components/types'
-import { Text, Title } from '@mantine/core'
+import { Text, Title, Anchor } from '@mantine/core'
 
 import Link from 'next/link'
 
@@ -25,14 +25,14 @@ export default function Page ({
       <Title order={1}>Event Calendars</Title>
       {calendars.map((x, i) => (
         <Text key={i}>
-          <Link href={`/calendars/${x.year}`} passHref key={i}>
-            <b>{x.year}</b> ... {x.days.length * 2}
-            <IconStar
-              size={14} // set custom `width` and `height`
-              color='orange' // set `stroke` color
-              fill='gold'
-            />
-          </Link>
+            <Anchor component={Link} href={`/calendars/${x.year}`} key={i}>
+              <b>Year {x.year}</b> - {x.days.length} puzzles solved - {x.days.length * 2}&nbsp;
+              <IconStar
+                size={14} // set custom `width` and `height`
+                color='orange' // set `stroke` color
+                fill='gold'
+              />'s earned
+            </Anchor>
         </Text>
       ))}
     </div>

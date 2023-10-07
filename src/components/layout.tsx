@@ -10,6 +10,7 @@ import {
   Navbar,
   NavLink,
   Text,
+  Title,
   useMantineTheme
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
@@ -44,13 +45,22 @@ export default function Layout ({ children }: Props) {
           width={{ sm: 200, lg: 300 }}
         >
           {navItems.map((item, i) => (
-            <Link href={item.href} passHref key={i}>
-              <NavLink
-                label={item.label}
-                icon={item.icon}
-                onClick={() => close()}
-              />
-            </Link>
+            <NavLink
+              component={Link}
+              href={item.href}
+              label={item.label}
+              icon={item.icon}
+              onClick={() => close()}
+            >
+              {item.children &&
+                item.children.map((child, j) => (
+                  <NavLink
+                    component={Link}
+                    href={child.href}
+                    label={child.label}
+                  />
+                ))}
+            </NavLink>
           ))}
         </Navbar>
       }
@@ -63,7 +73,7 @@ export default function Layout ({ children }: Props) {
       }
       footer={
         <Footer height={60} p='md'>
-          <Countdown/>
+          <Countdown />
         </Footer>
       }
       header={
@@ -81,7 +91,7 @@ export default function Layout ({ children }: Props) {
               />
             </MediaQuery>
 
-            <Text>Advent of Code API</Text>
+            <Title order={1}>Advent of Code API</Title>
           </div>
         </Header>
       }

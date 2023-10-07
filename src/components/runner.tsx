@@ -46,9 +46,6 @@ export default function Runner (props: { puzzle : AocApiPuzzle }) {
     timer.start()
     setActive(1)
 
-    // fake delay
-    await new Promise(r => setTimeout(r, 5000))
-
     const response = await fetch(`${answers_link.href}?input=${urlValue}`, {
       headers: { 'cache-control': 'no-cache' },
       cache: 'no-store'
@@ -70,9 +67,6 @@ export default function Runner (props: { puzzle : AocApiPuzzle }) {
     setFinishTime(Date.now())
     timer.start()
     setActive(1)
-
-    // fake delay
-    await new Promise(r => setTimeout(r, 5000))
 
     const response = await fetch(answers_link.href, {
       method: 'POST',

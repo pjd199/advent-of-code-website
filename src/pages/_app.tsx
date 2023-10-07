@@ -41,7 +41,13 @@ export default function CustomApp ({ Component, pageProps }: AppProps) {
             },
             '.mantine-List-root.mdx': {
               marginBottom: '0.75em'
-            }
+            },
+            '.mantine-NavLink-label': {
+              textDecoration: 'none',
+              textDecorationLine: 'none',
+              textDecorationColor: 'pink'
+            },
+            '.link-text': { color: 'inherit', textDecoration: 'inherit' }
           })
         }}
       >

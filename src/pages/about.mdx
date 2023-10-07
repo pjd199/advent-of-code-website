@@ -1,6 +1,5 @@
-import Image from "next/image"
-import logo from "../../public/next.svg"
 import SystemInformation from "../components/systeminformation"
+import Image from "next/image"
 
 export const getStaticProps = async () => {
   const response = await fetch(
@@ -12,27 +11,24 @@ export const getStaticProps = async () => {
 return { props: { info } }
 }
 
-# About Page
+# About
 
-## About
+## Desciption
 
-[Advent of Code](https://adventofcode.com/) is an annual coding challenge by
-[Eric Wastl](http://was.tl/). Some take up the challenge for the glory of the
-hall of fame. Others, like me, use the daily puzzles as a way of learning a new
-language. And so, this project is the story of my journey into
-[Python](https://www.python.org/) - the language, the ecosystem and the whole
-Pythnoic world. Blended with years of experience as a Software Engineer, the aim
-is to compose solutions that are elegant, robust and fully tested. Oh, and
-deployed as a RESTful API using [Flask](https://palletsprojects.com/p/flask/),
-[AWS Lambda](https://aws.amazon.com/lambda/), with
-[Github Actions](https://github.com/features/actions) providing for a CI/CD
-pipleline with automated test, build and deploy functionality. Free to try it
-out below, just don't spoil your fun by using the API until you've solved the
-puzzle by yourself!!!
+Advent of Code is an annual coding challenge by Eric Wastl. Some take up the
+challenge for the glory of the hall of fame. Others, like me, use the daily
+puzzles as a way of learning a new language.
 
-## System Information
+And so, this project has been the story of my journey into Python - the
+language, the ecosystem and the whole Pythnoic world. Blended with years
+of experience as a Software Engineer, the aim is to compose solutions that
+are elegant, robust and fully tested. Oh, and deployed as a RESTful API
+on AWS Lambda, with Github Actions providing for a full CI/CD pipleline
+with automated test, build and deploy functionality.
 
-<SystemInformation info={props.info} />
+Developing the project further, I decided to create this website to
+showcase my work and to delve deeper into learning the React Next.js
+framework with a Mantine UI backed by a MDX page source.
 
 ## Progress on Development Branch
 
@@ -43,40 +39,16 @@ puzzle by yourself!!!
   height='180'
 />
 
-## Built with
+## System Information
 
-- [Python](https://www.python.org/)
-- [Flask](https://palletsprojects.com/p/flask/)
-- [AWS Serverless Application Model](https://aws.amazon.com/serverless/sam/)
-- [AWS Lambda](https://aws.amazon.com/lambda/)
-- [Github Actions](https://github.com/features/actions)
+API hosted at [https://api.adventofcode.dibdin.me](https://api.adventofcode.dibdin.me)
 
-# Tail
+Python compiled with [{props.info.compiler}](https://www.python.org)
 
-```javascript
-alert('Hello')
-console.log('Log this')
-```
+Hosted on [AWS Lambda](https://aws.amazon.com/lambda), running {props.info.architecture} 
+{props.info.platform.split("-")[0]} on {props.info.machine} processors
 
-This is `inline` code
+Licenced under [MIT](https://raw.githubusercontent.com/pjd199/advent_of_code_python/main/license.md)
 
----
-
-Text with a\
-line break
-
-> this is a block quote
-
-[This is a link](http://www.google.co.uk/events 'Test anchor')
-
-1. first
-2. second
-3. third
-
-- one
-- two
-- three
-
-<Image src={logo} alt='Image with NextImage' />
-
-Done
+Website built with the [Next.js](https://nextjs.org) [React](https://react.dev) framework, using a 
+[Mantine](https://mantine.dev/) UI and deployed hosted by [Netlify](https://www.netlify.com/)

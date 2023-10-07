@@ -34,6 +34,7 @@ export type AocApiPuzzle = {
   timings: AocApiPuzzleTimings
   reposiroty_url: string
   code_url: string
+  official_url: string
   links: [AocApiLink]
 }
 

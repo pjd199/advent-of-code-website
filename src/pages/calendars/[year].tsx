@@ -1,5 +1,5 @@
 import { AocApiCalendars, AocApiPuzzles } from '@/components/types'
-import { Title, Text } from '@mantine/core'
+import { Anchor, Title, Text } from '@mantine/core'
 import Link from 'next/link'
 import { ParsedUrlQuery } from 'querystring'
 
@@ -49,13 +49,13 @@ export default function Page ({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
-      <Title order={1}>{year}</Title>
+      <Title order={1}>{year} Calendar</Title>
       {puzzles.map((x, i) => (
-        <Link href={`/puzzles/${year}/${x.day}`} passHref key={i}>
-        <Text key={i}>
-          <b>Day {x.day}</b> ... {x.title} stars
-        </Text>
-        </Link>
+        <Anchor component={Link} href={`/puzzles/${year}/${x.day}`} key={i}>
+          <Text key={i}>
+            <b>Day {x.day}</b> ... {x.title} stars
+          </Text>
+        </Anchor>
       ))}
     </div>
   )
