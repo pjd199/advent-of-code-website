@@ -58,7 +58,6 @@ export default function Layout ({ children }: Props) {
                     component={Link}
                     href={child.href}
                     label={child.label}
-                    onClick={() => close()}
                   />
                 ))}
             </NavLink>
